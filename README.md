@@ -1,3 +1,8 @@
+![WhatsApp Image 2025-11-17 at 00 05 04_b40735c1](https://github.com/user-attachments/assets/849a605f-6306-4f81-a8cd-4f2a32c0773a)
+![WhatsApp Image 2025-11-17 at 00 05 11_deb3044d](https://github.com/user-attachments/assets/2618c484-4e8e-4732-ae97-e44df478d2c4)
+
+
+
 # work_php_repo
 # Employee Management System
 
