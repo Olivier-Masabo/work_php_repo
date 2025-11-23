@@ -1,3 +1,36 @@
+   <?php 
+if (isset($_POST['submit'])) {
+    $contact   = $_POST['mobile_email'];  // email or phone
+    $password  = password_hash($_POST['password'], PASSWORD_BCRYPT);
+    $fullname  = $_POST['fullname'];
+    $username  = $_POST['username'];
+
+    // Detect if user entered email or phone
+    if (filter_var($contact, FILTER_VALIDATE_EMAIL)) {
+        $type = "email";
+    } elseif (preg_match('/^[0-9]+$/', $contact)) {
+        $type = "phone";
+    } else {
+        die("❌ Invalid contact format. Enter a valid email or phone number.");
+    }
+    // Connect to database
+    $connection = mysqli_connect('localhost', 'root', '', 'instagramdata');
+
+    // Insert into database
+    $signup = mysqli_query(
+        $connection,
+        "INSERT INTO users(contact,password, full_name, username)
+         VALUES ('$contact', '$password', '$fullname', '$username')"
+    );
+
+    if ($signup) {
+         header("Location: instlogin.php");
+        exit(); 
+    } else {
+        echo "❌ Signup failed: " . mysqli_error($connection);
+    }
+}
+?>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -204,7 +237,7 @@
                 <span>OR</span>
             </div>
             
-            <form method="POST" action="process-signup.php" style="width: 100%;">
+            <form method="POST" action="" style="width: 100%;">
                 <input type="text" name="mobile_email" placeholder="Mobile Number or Email" required>
                 <input type="password" name="password" placeholder="Password" required>
                 <input type="text" name="fullname" placeholder="Full Name" required>
@@ -218,7 +251,7 @@
                     By signing up, you agree to our <a href="#">Terms</a>, <a href="#">Privacy Policy</a> and <a href="#">Cookies Policy</a>.
                 </div>
                 
-                <button type="submit" class="btn">Sign up</button>
+                <button type="submit" class="btn" name="submit">Sign up</button>
             </form>
         </div>
         
@@ -228,5 +261,7 @@
         
         <div class="get-app">Get the app.</div>
     </div>
+
+
 </body>
 </html>
